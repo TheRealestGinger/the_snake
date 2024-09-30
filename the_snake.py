@@ -73,10 +73,10 @@ class Apple(GameObject):
 
     def randomize_position(self, snake_positions):
         """Установка случайной координаты позиции объекта."""
-        new_coordinate = ((randint(0, GRID_WIDTH) *
-                           GRID_SIZE) % SCREEN_WIDTH,
-                          (randint(0, GRID_HEIGHT) *
-                           GRID_SIZE) % SCREEN_HEIGHT)
+        new_coordinate = (((randint(0, GRID_WIDTH) *
+                           GRID_SIZE) % SCREEN_WIDTH),
+                          ((randint(0, GRID_HEIGHT) *
+                           GRID_SIZE) % SCREEN_HEIGHT))
         while True:
             if new_coordinate not in snake_positions:
                 return new_coordinate
@@ -117,10 +117,10 @@ class Snake(GameObject):
     def move(self):
         """Метод движения объекта змеи."""
         head = self.get_head_position()
-        next_position = ((head[0] +
-                          GRID_SIZE * self.direction[0]) % SCREEN_WIDTH,
-                         (head[1] +
-                          GRID_SIZE * self.direction[1]) % SCREEN_HEIGHT)
+        next_position = (((head[0] +
+                          GRID_SIZE * self.direction[0]) % SCREEN_WIDTH),
+                         ((head[1] +
+                          GRID_SIZE * self.direction[1]) % SCREEN_HEIGHT))
         self.positions.insert(0, next_position)
         if len(self.positions) > self.length:
             self.last = self.positions[-1]
