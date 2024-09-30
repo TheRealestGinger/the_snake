@@ -73,16 +73,14 @@ class Apple(GameObject):
 
     def randomize_position(self, snake_positions):
         """Установка случайной координаты позиции объекта."""
-        new_coordinate = (((randint(0, GRID_WIDTH) *
-                           GRID_SIZE) % SCREEN_WIDTH),
-                          ((randint(0, GRID_HEIGHT) *
-                           GRID_SIZE) % SCREEN_HEIGHT))
+        x = (randint(0, GRID_WIDTH) * GRID_SIZE) % SCREEN_WIDTH
+        y = (randint(0, GRID_HEIGHT) * GRID_SIZE) % SCREEN_HEIGHT
         while True:
-            if new_coordinate not in snake_positions:
-                return new_coordinate
+            if (x, y) not in snake_positions:
+                return (x, y)
             else:
-                new_coordinate = (randint(0, GRID_HEIGHT) * GRID_SIZE,
-                                  randint(0, GRID_HEIGHT) * GRID_SIZE)
+                x = (randint(0, GRID_WIDTH) * GRID_SIZE) % SCREEN_WIDTH
+                y = (randint(0, GRID_HEIGHT) * GRID_SIZE) % SCREEN_HEIGHT
 
     def draw(self):
         """Отрисовка объекта на игровом поле."""
@@ -117,11 +115,9 @@ class Snake(GameObject):
     def move(self):
         """Метод движения объекта змеи."""
         head = self.get_head_position()
-        next_position = (((head[0] +
-                          GRID_SIZE * self.direction[0]) % SCREEN_WIDTH),
-                         ((head[1] +
-                          GRID_SIZE * self.direction[1]) % SCREEN_HEIGHT))
-        self.positions.insert(0, next_position)
+        x = (head[0] + GRID_SIZE * self.direction[0]) % SCREEN_WIDTH
+        y = (head[1] + GRID_SIZE * self.direction[1]) % SCREEN_HEIGHT
+        self.positions.insert(0, (x, y))
         if len(self.positions) > self.length:
             self.last = self.positions[-1]
             self.positions.pop()
